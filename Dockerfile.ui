@@ -1,3 +1,7 @@
+
+ARG REACT_APP_API_URL='http://localhost:4000'
+ARG REACT_APP_DOMAINS=[\"domain.com\"]
+
 FROM node@sha256:a569d16e90f2e59da5594793509db37ebfa2d4eb4c5982758fad8f4c79f8ff8f AS yarn_base_image
 # RUN npm install -g yarn
 
@@ -16,8 +20,14 @@ COPY react/package.json /React-TrashMail/react/package.json
 WORKDIR /React-TrashMail/react
 RUN yarn install
 
-# ENV REACT_APP_API_URL='http://localhost:4000'
-# ENV REACT_APP_DOMAINS='[]'
+ARG REACT_APP_API_URL
+ARG REACT_APP_DOMAINS
+
+RUN echo ${REACT_APP_API_URL}
+RUN echo ${REACT_APP_DOMAINS}
+
+ENV REACT_APP_API_URL=${REACT_APP_API_URL}
+ENV REACT_APP_DOMAINS=${REACT_APP_DOMAINS}
 
 COPY react /React-TrashMail/react
 RUN yarn build
