@@ -1,0 +1,30 @@
+
+name: project_mail
+
+services:
+  service_read_mail_ui:
+    image: image_read_mail_ui
+    build:
+      dockerfile: ./Dockerfile.ui
+      context: ./
+    container_name: container_read_mail_ui
+    # restart: always
+    ports:
+      # - "3000:3000"  # Web UI and API
+      - "4000:4000"  # Web UI and API
+      - "25:25"      # SMTP port
+    environment:
+      - REACT_APP_DOMAINS=["domain.com"]
+      - REACT_APP_API_URL=http://host.docker.internal:4500
+      - MONGO_URL=mongodb://services_momgo:27017
+    # volumes:
+      # - ./data/attachments:/React-TrashMail/mailserver/attachments:rw
+      # - ./data/db:/data/db:rw
+  services_momgo:
+    image: mongo
+    # restart: always
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: example
+    # volumes:
+    #   -/my/own/datadir:/data/db

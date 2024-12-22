@@ -1,0 +1,39 @@
+FROM node@sha256:a569d16e90f2e59da5594793509db37ebfa2d4eb4c5982758fad8f4c79f8ff8f AS yarn_base_image
+# RUN npm install -g yarn
+
+FROM yarn_base_image AS mailserver_image
+COPY mailserver/yarn.lock /React-TrashMail/mailserver/yarn.lock
+COPY mailserver/package.json /React-TrashMail/mailserver/package.json
+WORKDIR /React-TrashMail/mailserver
+RUN yarn install
+COPY mailserver /React-TrashMail/mailserver
+
+
+FROM yarn_base_image AS react_image
+
+COPY react/yarn.lock /React-TrashMail/react/yarn.lock
+COPY react/package.json /React-TrashMail/react/package.json
+WORKDIR /React-TrashMail/react
+RUN yarn install
+
+# ENV REACT_APP_API_URL='http://localhost:4000'
+# ENV REACT_APP_DOMAINS='[]'
+
+COPY react /React-TrashMail/react
+RUN yarn build
+
+
+# Start with the official MongoDB image
+FROM mailserver_image
+
+# Copy in mailserver dependencies
+COPY --from=react_image /React-TrashMail/react/build /React-TrashMail/mailserver/build
+
+# Define mountable volume
+VOLUME ["/React-TrashMail/mailserver/attachments"]
+
+EXPOSE 4000
+EXPOSE 25
+
+# Set the command to start the application using the startup script
+CMD [ "yarn", "start:docker"]
