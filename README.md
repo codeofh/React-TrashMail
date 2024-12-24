@@ -1,6 +1,6 @@
-# TrashMail - Disposable Email Service
+# OTP247 - Disposable Email Service
 
-TrashMail is a web application for generating disposable/temporary email addresses and viewing emails sent to those addresses. The project consists of a React frontend and a Node.js and MongoDB backend mail server.
+OTP247 is a web application for generating disposable/temporary email addresses and viewing emails sent to those addresses. The project consists of a React frontend and a Node.js and MongoDB backend mail server.
 
 ## Table of Contents
 - [Frontend](#frontend)
@@ -114,7 +114,7 @@ For those who prefer a containerized deployment, Docker can be used to easily se
    ```shell
    sudo docker run -d -p 4000:4000 -p 25:25 -v ./attachments:/React-TrashMail/mailserver/attachments -e REACT_APP_API_URL= -e REACT_APP_DOMAINS='["example.com"]' --name trashmail-container hppanpaliya/react-trashmail:latest
    ```
-   This command starts the TrashMail application and exposes it on ports 4000 and 25 for mailserver.
+   This command starts the OTP247 application and exposes it on ports 4000 and 25 for mailserver.
 
 3. **Accessing the Application**:
    Once the container is running, you can access the frontend at [http://localhost:3000](http://localhost:3000) and the backend on port 4000.
@@ -131,7 +131,7 @@ Ensure you have Docker installed and running on your machine before executing th
 | `-v ./attachments:/React-TrashMail/mailserver/attachments` | Volume mount for attachments. Maps a local directory to a container directory. |
 | `-v /my/local/mongodb:/data/db` | (Optional) Volume mount for MongoDB data. Maps a local directory to the MongoDB data directory in the container. |
 
-These options and environment variables are crucial for configuring the TrashMail application within the Docker environment, especially for handling backend API communication and data persistence.
+These options and environment variables are crucial for configuring the OTP247 application within the Docker environment, especially for handling backend API communication and data persistence.
 
 ## Conclusion
 

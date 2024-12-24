@@ -48,7 +48,7 @@ const TitleBar = () => {
         }}
         aria-hidden="true"
       >
-        TrashMail
+        OTP247
       </p>
 
       <Grid item xs={12} sm={2}>
@@ -73,7 +73,7 @@ const TitleBar = () => {
             }}
             onClick={() => navigate("/")}
           >
-            TrashMail
+            OTP247
           </Typography>
         </Box>
       </Grid>

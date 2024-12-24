@@ -89,7 +89,7 @@ const Main = () => {
                   maxWidth: isMobile ? "100%" : "36.5%",
                 }}
               >
-                TrashMail is your go-to platform for creating temporary and disposable email addresses. With our cutting-edge technology, you can easily
+                OTP247 is your go-to platform for creating temporary and disposable email addresses. With our cutting-edge technology, you can easily
                 protect your privacy and avoid spam in a hassle-free manner.
               </Typography>
             </Box>

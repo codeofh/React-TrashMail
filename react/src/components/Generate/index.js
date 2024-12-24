@@ -30,12 +30,21 @@ const Generate = () => {
   }, []);
 
   const copyToClipboard = () => {
-    if (email === "") {
+    console.log("Copying email:", email); // Kiểm tra giá trị email
+    if (!email) {
       alert("Please enter an email address");
       return;
     }
-    navigator.clipboard.writeText(email);
+    if (!navigator.clipboard) {
+      alert("Clipboard API is not supported on this browser");
+      return;
+    }
+  
+    navigator.clipboard.writeText(email)
+      .then(() => alert("Email copied to clipboard!"))
+      .catch((err) => alert("Failed to copy email: " + err));
   };
+  
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -48,18 +57,40 @@ const Generate = () => {
     setEmail(randomEmail);
   };
 
+  // const handleInboxRedirect = () => {
+  //   if (email === "") {
+  //     alert("Please enter an email address");
+  //     return;
+  //   }
+  //   const domainMatch = domains.some((domain) => email.endsWith(domain));
+  //   if (domainMatch) {
+  //     navigate("/inbox/" + email);
+  //   } else {
+  //     alert("Email address does not end with a valid domain. Valid domains are: " + domains.join(", "));
+  //   }
+  // };
+
   const handleInboxRedirect = () => {
     if (email === "") {
       alert("Please enter an email address");
       return;
     }
+  
+    const defaultDomain = "@otp247.me"; // Domain mặc định
     const domainMatch = domains.some((domain) => email.endsWith(domain));
-    if (domainMatch) {
-      navigate("/inbox/" + email);
-    } else {
+  
+    // Nếu email không chứa "@" hoặc không có domain hợp lệ, thêm domain mặc định
+    if (!email.includes("@")) {
+      setEmail((prevEmail) => prevEmail + defaultDomain);
+    } else if (!domainMatch) {
       alert("Email address does not end with a valid domain. Valid domains are: " + domains.join(", "));
+      return;
     }
+  
+    // Điều hướng đến inbox nếu email hợp lệ
+    navigate("/inbox/" + email);
   };
+  
 
   const inputStyles = {
     marginRight: isMobile ? 0 : "2rem",

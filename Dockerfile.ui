@@ -2,8 +2,7 @@
 ARG REACT_APP_API_URL='http://localhost:4000'
 ARG REACT_APP_DOMAINS=[\"domain.com\"]
 
-FROM node@sha256:a569d16e90f2e59da5594793509db37ebfa2d4eb4c5982758fad8f4c79f8ff8f AS yarn_base_image
-# RUN npm install -g yarn
+FROM node:alpine@sha256:c61b6b12a3c96373673cd52d7ecee2314e82bca5d541eecf0bc6aee870c8c6f7 AS yarn_base_image
 
 FROM yarn_base_image AS mailserver_image
 COPY mailserver/yarn.lock /React-TrashMail/mailserver/yarn.lock
